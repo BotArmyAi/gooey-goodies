@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Brand palette — pulled from the original site + elevated */
+  --color-cream: #fff4f9;
+  --color-blush: #ffd8e9;
+  --color-blush-deep: #ffbcd9;
+  --color-pink: #f121b5;
+  --color-pink-soft: #ff5fc4;
+  --color-sunny: #ffcb4a;
+  --color-sunny-deep: #ff9e2c;
+  --color-choco: #6b3e26;
+  --color-choco-soft: #a56a3f;
+  --color-ink: #3a2233;
+  --color-ink-soft: #7a5b6d;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-display: var(--font-display), system-ui, sans-serif;
+  --font-body: var(--font-body), system-ui, sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --shadow-soft: 0 18px 50px -20px rgba(241, 33, 181, 0.35);
+  --shadow-card: 0 24px 60px -28px rgba(58, 34, 51, 0.35);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-spin-slow: spin 22s linear infinite;
+  --animate-marquee: marquee 32s linear infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-16px) rotate(-3deg);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-cream);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: var(--color-pink);
+    color: white;
+  }
+}
+
+@layer utilities {
+  /* Playful hot-pink headline that echoes the logo */
+  .text-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--color-pink) 0%,
+      var(--color-pink-soft) 45%,
+      var(--color-sunny-deep) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(
+      var(--color-blush-deep) 1.4px,
+      transparent 1.4px
+    );
+    background-size: 22px 22px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }

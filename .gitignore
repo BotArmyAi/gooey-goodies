@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scrape/scratch (source assets + review screenshots, not part of the app)
+/scrape
